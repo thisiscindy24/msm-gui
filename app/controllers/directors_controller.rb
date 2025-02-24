@@ -55,4 +55,18 @@ class DirectorsController < ApplicationController
     @list_of_directors = Director.order({ :created_at => :desc })
     render({ :template => "director_templates/index" })
   end
+
+  def delete_this
+    the_id = params.fetch("path_id")
+
+    matching_directors = Director.where({ :id => the_id })
+    @the_director = matching_directors.at(0)
+
+    @the_director.destroy
+    
+
+    redirect_to("/directors")
+  end
+
+
 end
