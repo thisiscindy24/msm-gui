@@ -4,7 +4,7 @@
 
 <hr>
 
-<form action="/movie" method="post">
+<form action="/movies" method="post">
   <div>
     <label for="title_box">
       Title
@@ -109,7 +109,10 @@
       
       <% the_director = matching_directors.at(0) %>
 
-      <%= the_director.name %>
+      <% if the_director.present? %>
+        <%= the_director.name %>
+      <% else %>
+        Uh oh! We weren't able to find a director for this movie.
     </td>
 
     <td>
