@@ -36,4 +36,23 @@ class DirectorsController < ApplicationController
 
     render({ :template => "director_templates/eldest" })
   end
+
+  def create
+    # Extract form parameters
+    director_name = params.fetch("query_name")
+    director_dob = params.fetch("query_dob")
+    director_bio = params.fetch("query_bio")
+    director_image = params.fetch("query_image")
+
+    # Create new director record
+    new_director = Director.new
+    new_director.name = director_name
+    new_director.dob = director_dob
+    new_director.bio = director_bio
+    new_director.image = director_image
+    
+    new_director.save
+    @list_of_directors = Director.order({ :created_at => :desc })
+    render({ :template => "director_templates/index" })
+  end
 end
