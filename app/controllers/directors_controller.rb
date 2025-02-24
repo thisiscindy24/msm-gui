@@ -68,5 +68,28 @@ class DirectorsController < ApplicationController
     redirect_to("/directors")
   end
 
+  def modify
+    the_id = params.fetch("path_id")
+
+    matching_directors = Director.where({ :id => the_id })
+    @the_director = matching_directors.at(0)
+    render({ :template => "director_templates/modify" })
+
+  end
+
+  def update
+    the_id = params.fetch("path_id")
+
+    matching_directors = Director.where({ :id => the_id })
+    @the_director = matching_directors.at(0)
+    @the_director.name = params.fetch("query_name")
+    @the_director.dob = params.fetch("query_dob")
+    @the_director.bio = params.fetch("query_bio")
+    @the_director.image = params.fetch("query_image")
+    
+    @the_director.save
+    render({ :template => "director_templates/modify" })
+  end
+
 
 end
