@@ -88,7 +88,7 @@ class DirectorsController < ApplicationController
     @the_director.image = params.fetch("query_image")
     
     @the_director.save
-    render({ :template => "director_templates/modify" })
+    redirect_to("/directors/#{@the_director.id}")
   end
 
 
