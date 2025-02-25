@@ -14,6 +14,7 @@
   </a>
 </div>
 
+
 <hr>
 
 <form action="/update_movie/<%= @the_movie.id %>" method="post">
@@ -118,7 +119,12 @@
     
     <% the_director = matching_directors.at(0) %>
 
-    <%= the_director.name %>
+    <% if the_director.present? %>
+        <%= the_director.name %>
+      <% else %>
+        Uh oh! We weren't able to find a director for this movie.
+        <% end %>
+
   </dd>
 
   <dt>
