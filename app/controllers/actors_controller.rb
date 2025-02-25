@@ -42,4 +42,29 @@ class ActorsController < ApplicationController
     @the_actor.destroy
     redirect_to("/actors")
   end
+
+  def modify
+    the_id = params.fetch("path_id")
+    matching_actors = Actor.where({ :id => the_id })
+    @the_actor = matching_actors.at(0)
+
+    @the_actor.destroy
+    render({ :template => "actor_templates/modify" })
+  end
+
+  def update
+    the_id = params.fetch("path_id")
+    matching_actors = Actor.where({ :id => the_id })
+    @the_actor = matching_actors.at(0)
+
+    @the_actor.name = params.fetch("query_name")
+    @the_actor.dob = params.fetch("query_dob")
+    @the_actor.bio = params.fetch("query_bio")
+    @the_actor.image = params.fetch("query_image")
+
+    @the_actor.save
+    @list_of_actors = Actor.order({ :created_at => :desc })
+    redirect_to("/actors/#{@the_actor.id}")
+  end
+
 end
